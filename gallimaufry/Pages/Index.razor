@@ -1,7 +1,48 @@
 ﻿@page "/"
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Gallimaufry</h1>
+    </div>
+    <div class="row justify-content-center">
+    
+        <blockquote>
+            /ˌɡaləˈmôfrē/
+            n. - a confused jumble or medley of things.
+        </blockquote>
+    </div>
+    <div class="row justify-content-center">
+        <p class="text-center">
+        Gallimaufry is a collection of random little tools that I (Numilani) decided were worth making,
+        but weren't worth being their own separate applications.
+        <br>
+        If you have feature suggestions or bug reports,
+        you can leave them at the <a href="https://gitlab.com/Numilani/gallimaufry">Gitlab repo</a>
+        in the issue tracker (be sure to tag it properly please).
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-6 border">
+            <h2>Latest Updates:</h2>
+            <ul>
+                <h4>Mando'a Time Converter v1.1 released!</h4>
+                <ul>
+                    <li>Added basic instructions</li>
+                    <li>Fixed crashes on failed inputs</li>
+                </ul>
+                <h4>Made this home screen!</h4>
+                <ul>
+                    <li>Yeah it's basic, oh well :P</li>
+                    <li>I will make it pretty when I get to it</li>
+                </ul>
+            </ul>
+        </div>
+        <div class="col-6 border">
+            <h2>Featured Tools</h2>
+            <ul>
+                <li>
+                    <NavLink href="/mandoa/time-convert">Mando'a Time Converter</NavLink>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

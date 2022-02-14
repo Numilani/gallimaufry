@@ -1,0 +1,136 @@
+﻿@page "/minecraft/log-cleaner"
+@using System.Text.RegularExpressions
+@using Match = System.Text.RegularExpressions.Match
+@using System.IO
+<h3>Minecraft Chat Log Cleaner</h3>
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is3">
+        <InputFile OnChange="@LoadFiles" />
+        <RadioGroup @bind-CheckedValue="logType" TValue="string">
+            <Radio Value="@("client")">Client Log</Radio>
+            <Radio Value="@("server")">Server Log</Radio>
+        </RadioGroup>
+    </Column>
+    <Column ColumnSize="ColumnSize.Is3">
+        
+        @if (logType == "client")
+        {
+            <Select TValue="string" @bind-SelectedValue="filterName">
+                <SelectItem TValue="string" Value="String.Empty"></SelectItem>
+                <SelectItem TValue="string" Value="@("all")">Show Chat and Commands</SelectItem>
+                <SelectItem TValue="string" Value="@("chat")">Show Only Chat</SelectItem>
+                <SelectItem TValue="string" Value="@("incharacter")">Show Only In-Character Chat (ChatRanges plugin only)</SelectItem>
+            </Select>
+        }
+        @if (logType == "server")
+        {
+            <Select TValue="string" @bind-SelectedValue="filterName">
+                <SelectItem TValue="string" Value="String.Empty"></SelectItem>
+                <SelectItem TValue="string" Value="@("server_ChatAndPM")">Show Chat & PMs</SelectItem>
+                <SelectItem TValue="string" Value="@("server_chat")">Show Only Chat</SelectItem>
+                <SelectItem TValue="string" Value="@("server_PM")">Show Only PMs</SelectItem>
+                <SelectItem TValue="string" Value="@("server_console")">Show Only Console</SelectItem>
+                <SelectItem TValue="string" Value="@("server_errors")">Show Only Errors</SelectItem>
+            </Select>
+        }
+    </Column>
+    <Column ColumnSize="ColumnSize.Is3">
+        <Button Color="Color.Success" Clicked="CleanText">Clean</Button>
+    </Column>
+</Row>
+
+<Row>
+    <Column>
+        <MemoEdit @bind-Text="@OutputText" Rows="30" Disabled="true"/>
+    </Column>
+</Row>
+
+
+@code {
+    private long maxFileSize = 1024000 * 50;
+    private bool isLoading;
+    
+    public string InputText = "";
+    public string OutputText = "";
+
+    public string logType = "client";
+    public string filterName = String.Empty;
+    
+    public Regex showChatAndCommands = new Regex(@"(?<=\[CHAT\] ).*", RegexOptions.Compiled);
+    public Regex ShowOnlyChat = new Regex(@"(?<=\[CHAT\] )\s?\*?\s?\[.*", RegexOptions.Compiled);
+    public Regex showICOnly = new Regex(@"(?<=\[CHAT\] )\[(Local|Quiet|Whisper|Yell|Broadcast).*", RegexOptions.Compiled);
+    
+    public Regex server_ChatOnly = new Regex(@"(\[Global\] |\[Broadcast\] |\[Province\] |\[Yell\] |\[Local\] |\[Quiet\] |\[Whisper\] ).*", RegexOptions.Compiled);
+    public Regex server_ChatAndPMsOnly = new Regex(@"(\[Global\] |\[Broadcast\] |\[Province\] |\[Yell\] |\[Local\] |\[Quiet\] |\[Whisper\] |((?<=\[Server thread\/INFO\]: ).*(issued server command: \/(msg|r)).*)).*", RegexOptions.Compiled);
+    public Regex server_PMsOnly = new Regex(@"(?<=\[Server thread\/INFO\]: ).*(issued server command: /(msg|r)).*", RegexOptions.Compiled);
+    public Regex server_ConsoleOnly = new Regex(@"(?<=\[Server thread\/INFO\]: )(?!\*?\s?\[(Global|Broadcast|Province|Yell|Local|Quiet|Whisper)\]).*", RegexOptions.Compiled);
+    public Regex server_ErrorsOnly = new Regex(@"(?<=\[Server thread\/ERROR\]: ).*", RegexOptions.Compiled);
+
+    public void CleanText()
+    {
+        string ret = "";
+        Console.WriteLine("Starting clean");
+        MatchCollection x = null;
+
+        if (logType == "client")
+        {
+            if (filterName == "incharacter")
+            {
+                x = showICOnly.Matches(InputText);
+            }
+            else if (filterName == "chat")
+            {
+                x = ShowOnlyChat.Matches(InputText);
+            }
+            else if (filterName == "all")
+            {
+                x = showChatAndCommands.Matches(InputText);
+            }
+            else return;
+        }
+        if (logType == "server")
+        {
+            if (filterName == "server_ChatAndPM")
+            {
+                x = server_ChatAndPMsOnly.Matches(InputText);
+            }
+            else if (filterName == "server_chat")
+            {
+                x = server_ChatOnly.Matches(InputText);
+            }
+            else if (filterName == "server_PM")
+            {
+                x = server_PMsOnly.Matches(InputText);
+            }
+            else if (filterName == "server_console")
+            {
+                x = server_ConsoleOnly.Matches(InputText);
+            }
+            else if (filterName == "server_errors")
+            {
+                x = server_ErrorsOnly.Matches(InputText);
+            }
+            else return;
+        }
+
+        foreach (Match match in x)
+        {
+            Console.WriteLine(match.Value.Replace("issued server command: /msg ", " -> ").Replace("issued server command: /r ", "replied: "));
+            ret += match.Value.Replace("issued server command: /msg ", " -> ").Replace("issued server command: /r ", "replied: ");
+            ret += "\n\n";
+        }
+        Console.WriteLine("Clean Ended");
+        OutputText = ret;
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+
+        TextReader tr = new StreamReader(e.File.OpenReadStream(maxFileSize));
+        string str = await tr.ReadToEndAsync();
+        InputText = str;
+        isLoading = false;
+    }
+}

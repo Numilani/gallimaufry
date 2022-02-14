@@ -1,0 +1,24 @@
+﻿@page "/news"
+<div class="row justify-content-center">
+    <h1>(mostly) Unbiased Newsfeed</h1>
+    <hr>
+</div>
+
+@if (articleList != null)
+{
+    <div class="row">
+        @foreach (var x in articleList?.articles)
+        {
+            <Card Class="col-3" Style="margin-bottom: 2em;">
+                <CardImage Source="@x.urlToImage"/>
+                <CardBody>
+                    <CardSubtitle Color="TextColor.Secondary" Alignment="TextAlignment.Center" Size="5">@x.source.name (@x.publishedAt.ToString("yyyy-MM-dd"))</CardSubtitle>
+                    <CardTitle Alignment="TextAlignment.Center" Size="3">@x.title</CardTitle>
+                </CardBody>
+                <CardFooter Class="text-center">
+                    <a href="@x.url" class="btn btn-primary">View Article</a>
+                </CardFooter>
+            </Card>
+        }
+    </div>
+}

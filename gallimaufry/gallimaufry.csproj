@@ -4,4 +4,19 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Blazorise" Version="0.9.4.7" />
+      <PackageReference Include="Blazorise.Bootstrap" Version="0.9.4.7" />
+      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.7" />
+      <PackageReference Include="Flurl" Version="3.0.2" />
+      <PackageReference Include="Flurl.Http" Version="3.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="dist\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="dist\appsettings.json" />
+      <_ContentIncludedByDefault Remove="dist\gallimaufry.deps.json" />
+      <_ContentIncludedByDefault Remove="dist\gallimaufry.runtimeconfig.json" />
+    </ItemGroup>
+
 </Project>

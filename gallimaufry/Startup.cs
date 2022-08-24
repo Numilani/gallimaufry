@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using gallimaufry.Data;
+using Microsoft.EntityFrameworkCore;
+using Radzen;
 
 namespace gallimaufry
 {
@@ -32,6 +34,12 @@ namespace gallimaufry
             services.AddBlazorise().AddBootstrapProviders().AddFontAwesomeIcons();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            
+            services.AddScoped<DialogService>();
+            services.AddScoped<NotificationService>();
+            services.AddScoped<TooltipService>();
+            services.AddScoped<ContextMenuService>();
+            
             services.AddSingleton<NewsService>();
         }
 

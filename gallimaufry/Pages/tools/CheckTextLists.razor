@@ -1,0 +1,66 @@
+@page "/devtools/checktextlists"
+<h3>CheckTextLists</h3>
+
+<div class="row justify-content-around mb-4">
+    <div class="col-5">
+        <div class="row">
+            <RadzenLabel Text="Text A"/>
+            <RadzenTextArea @bind-Value="TextA" Rows="10" Style="width:100%"/>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="row">
+            <RadzenLabel Text="Text B"/>
+            <RadzenTextArea @bind-Value="TextB" Rows="10" Style="width:100%"/>
+        </div>
+    </div>
+</div>
+<div class="row text-center mb-4">
+    <div class="col">
+        <RadzenButton Text="Compare" Click="CompareStrings"/>
+    </div>
+</div>
+<div class="row justify-content-around mb-4">
+    <div class="col-5">
+        <div class="row">
+            <RadzenLabel Text="In A Not B"/>
+            <RadzenTextArea @bind-Value="InANotB" Rows="5" Style="width:100%"/>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="row">
+            <RadzenLabel Text="In B Not A"/>
+            <RadzenTextArea @bind-Value="InBNotA" Rows="5" Style="width:100%"/>
+        </div>
+    </div>
+</div>
+
+@code {
+    string TextA { get; set; }
+    string TextB { get; set; }
+    
+    string InANotB { get; set; }
+    string InBNotA { get; set; }
+
+    void CompareStrings()
+    {
+        var AStrings = TextA.Split('\n');
+        var BStrings = TextB.Split('\n');
+
+        foreach (var astring in AStrings)
+        {
+            if (!BStrings.Contains(astring))
+            {
+                InANotB += $"{astring}\n";
+            }
+        }
+        
+        foreach (var bstring in BStrings)
+        {
+            if (!AStrings.Contains(bstring))
+            {
+                InBNotA += $"{bstring}\n";
+            }
+        }
+    }
+}

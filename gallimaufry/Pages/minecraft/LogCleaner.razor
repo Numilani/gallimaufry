@@ -4,47 +4,49 @@
 @using System.IO
 <h3>Minecraft Chat Log Cleaner</h3>
 
-<Row>
-    <Column ColumnSize="ColumnSize.Is3">
+<div class="row">
+    <div class="col-3">
         <InputFile OnChange="@LoadFiles" />
-        <RadioGroup @bind-CheckedValue="logType" TValue="string">
-            <Radio Value="@("client")">Client Log</Radio>
-            <Radio Value="@("server")">Server Log</Radio>
-        </RadioGroup>
-    </Column>
-    <Column ColumnSize="ColumnSize.Is3">
+        <RadzenRadioButtonList @bind-Value="logType">
+            <RadzenRadioButtonListItem Value="@("client")" Text="Client Log"/>
+            <RadzenRadioButtonListItem Value="@("server")" Text="Server Log"/>
+        </RadzenRadioButtonList>
+    </div>
+    <div class="col-3">
         
         @if (logType == "client")
         {
-            <Select TValue="string" @bind-SelectedValue="filterName">
-                <SelectItem TValue="string" Value="String.Empty"></SelectItem>
-                <SelectItem TValue="string" Value="@("all")">Show Chat and Commands</SelectItem>
-                <SelectItem TValue="string" Value="@("chat")">Show Only Chat</SelectItem>
-                <SelectItem TValue="string" Value="@("incharacter")">Show Only In-Character Chat (ChatRanges plugin only)</SelectItem>
-            </Select>
+            <RadzenDropDown @bind-Value="filterName">
+            </RadzenDropDown>
+            @* <Select TValue="string" @bind-SelectedValue="filterName"> *@
+            @*     <SelectItem TValue="string" Value="String.Empty"></SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("all")">Show Chat and Commands</SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("chat")">Show Only Chat</SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("incharacter")">Show Only In-Character Chat (ChatRanges plugin only)</SelectItem> *@
+            @* </Select> *@
         }
         @if (logType == "server")
         {
-            <Select TValue="string" @bind-SelectedValue="filterName">
-                <SelectItem TValue="string" Value="String.Empty"></SelectItem>
-                <SelectItem TValue="string" Value="@("server_ChatAndPM")">Show Chat & PMs</SelectItem>
-                <SelectItem TValue="string" Value="@("server_chat")">Show Only Chat</SelectItem>
-                <SelectItem TValue="string" Value="@("server_PM")">Show Only PMs</SelectItem>
-                <SelectItem TValue="string" Value="@("server_console")">Show Only Console</SelectItem>
-                <SelectItem TValue="string" Value="@("server_errors")">Show Only Errors</SelectItem>
-            </Select>
+            @* <Select TValue="string" @bind-SelectedValue="filterName"> *@
+            @*     <SelectItem TValue="string" Value="String.Empty"></SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("server_ChatAndPM")">Show Chat & PMs</SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("server_chat")">Show Only Chat</SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("server_PM")">Show Only PMs</SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("server_console")">Show Only Console</SelectItem> *@
+            @*     <SelectItem TValue="string" Value="@("server_errors")">Show Only Errors</SelectItem> *@
+            @* </Select> *@
         }
-    </Column>
-    <Column ColumnSize="ColumnSize.Is3">
-        <Button Color="Color.Success" Clicked="CleanText">Clean</Button>
-    </Column>
-</Row>
+    </div>
+    <div class="col-3">
+        <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Clean" Click="CleanText"/>
+    </div>
+</div>
 
-<Row>
-    <Column>
-        <MemoEdit @bind-Text="@OutputText" Rows="30" Disabled="true"/>
-    </Column>
-</Row>
+<div class="row">
+    <div class="col">
+        <RadzenTextArea @bind-Value="@OutputText" Rows="30" Disabled="true"/>
+    </div>
+</div>
 
 
 @code {

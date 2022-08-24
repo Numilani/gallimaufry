@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Blazorise" Version="0.9.4.7" />
-      <PackageReference Include="Blazorise.Bootstrap" Version="0.9.4.7" />
-      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.7" />
-      <PackageReference Include="Flurl" Version="3.0.2" />
-      <PackageReference Include="Flurl.Http" Version="3.2.0" />
+      <PackageReference Include="Blazorise" Version="1.0.6" />
+      <PackageReference Include="Blazorise.Bootstrap" Version="1.0.6" />
+      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.6" />
+      <PackageReference Include="Flurl" Version="3.0.6" />
+      <PackageReference Include="Flurl.Http" Version="3.2.4" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
+      <PackageReference Include="Radzen.Blazor" Version="3.20.5" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +19,22 @@
       <_ContentIncludedByDefault Remove="dist\appsettings.json" />
       <_ContentIncludedByDefault Remove="dist\gallimaufry.deps.json" />
       <_ContentIncludedByDefault Remove="dist\gallimaufry.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\appsettings.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\appsettings.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\dist\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\dist\appsettings.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\dist\gallimaufry.deps.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\dist\gallimaufry.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\gallimaufry.deps.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\dist\gallimaufry.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\gallimaufry.deps.json" />
+      <_ContentIncludedByDefault Remove="dist\dist\gallimaufry.runtimeconfig.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Data\PersonalDataContext.cs" />
     </ItemGroup>
 
 </Project>

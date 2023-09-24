@@ -1,17 +1,36 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
 
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+<RadzenLayout Style="grid-template-areas: 'rz-sidebar rz-header' 'rz-sidebar rz-body'">
+    <RadzenHeader>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+            <RadzenSidebarToggle Click="@(() => sidebar2Expanded = !sidebar2Expanded)" />
+            <RadzenLabel Text="Gallimaufry" />
+        </RadzenStack>
+    </RadzenHeader>
+    <RadzenSidebar @bind-Expanded="@sidebar2Expanded">
+        <RadzenPanelMenu>
+            <RadzenPanelMenuItem Text="Home" Icon="home" Path="/" />
+            <RadzenPanelMenuItem Text="Mando'a Time" Icon="schedule" Path="mandoa/time-convert" />
+            <RadzenPanelMenuItem Text="MC Log Cleaner" Icon="settings" Path="minecraft/log-cleaner" />
+            <RadzenPanelMenuItem Text="Diff Checker (test)" Icon="difference" Path="devtools/checktextlists" />
+        </RadzenPanelMenu>
+        <div class="rz-p-4">
+            Sidebar
         </div>
-
-        <div class="content px-4">
+    </RadzenSidebar>
+    <RadzenBody>
+        <div class="rz-p-4">
             @Body
         </div>
-    </div>
-</div>
+    </RadzenBody>
+</RadzenLayout>
+
+<RadzenDialog/>
+<RadzenNotification/>
+<RadzenContextMenu/>
+<RadzenTooltip/>
+
+@code {
+    bool sidebar2Expanded = true;
+}

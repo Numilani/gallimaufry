@@ -5,13 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Blazorise" Version="1.0.6" />
-      <PackageReference Include="Blazorise.Bootstrap" Version="1.0.6" />
-      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.6" />
-      <PackageReference Include="Flurl" Version="3.0.6" />
+      <PackageReference Include="Flurl" Version="3.0.7" />
       <PackageReference Include="Flurl.Http" Version="3.2.4" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
-      <PackageReference Include="Radzen.Blazor" Version="3.20.5" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+      <PackageReference Include="Radzen.Blazor" Version="4.16.2" />
     </ItemGroup>
 
     <ItemGroup>

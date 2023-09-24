@@ -33,9 +33,9 @@
         new FilterOption("Client: Chat And Commands", "all"),
         new FilterOption("Client: Only Chat", "chat"),
         new FilterOption("Client: Only IC Chat", "incharacter"),
-        new FilterOption("Server: Chat and PMs", "server_ChatAndPM"),
-        new FilterOption("Server: Only Chat", "server_chat"),
-        new FilterOption("Server: Only PMs", "server_PM"),
+        // new FilterOption("Server: Chat and PMs", "server_ChatAndPM"),
+        // new FilterOption("Server: Only Chat", "server_chat"),
+        // new FilterOption("Server: Only PMs", "server_PM"),
         new FilterOption("Server: Only Console", "server_console"),
         new FilterOption("Server: Only Errors In Console", "server_errors")
     };
@@ -50,12 +50,12 @@
 
     public Regex showChatAndCommands = new Regex(@"(?<=\[CHAT\] ).*", RegexOptions.Compiled);
     public Regex ShowOnlyChat = new Regex(@"(?<=\[CHAT\] )\s?\*?\s?\[.*", RegexOptions.Compiled);
-    public Regex showICOnly = new Regex(@"(?<=\[CHAT\] )\[(L|Q|Wh|Y|Broadcast).*", RegexOptions.Compiled);
+    public Regex showICOnly = new Regex(@"(?<=\[CHAT\] )\[(L|Q|W|Y|Broadcast).*", RegexOptions.Compiled);
 
-    public Regex server_ChatOnly = new Regex(@"(\[Global\] |\[Broadcast\] |\[Province\] |\[Yell\] |\[Local\] |\[Quiet\] |\[Whisper\] ).*", RegexOptions.Compiled);
-    public Regex server_ChatAndPMsOnly = new Regex(@"(\[Global\] |\[Broadcast\] |\[Province\] |\[Yell\] |\[Local\] |\[Quiet\] |\[Whisper\] |((?<=\[Server thread\/INFO\]: ).*(issued server command: \/(msg|r)).*)).*", RegexOptions.Compiled);
+    public Regex server_ChatOnly = new Regex(@"(\[G\] |\[Broadcast\] |\[P\] |\[Y\] |\[L\] |\[Q\] |\[W\] ).*", RegexOptions.Compiled);
+    public Regex server_ChatAndPMsOnly = new Regex(@"(\[G\] |\[Broadcast\] |\[P\] |\[Y\] |\[L\] |\[Q\] |\[W\] |((?<=\[Server thread\/INFO\]: ).*(issued server command: \/(msg|r)).*)).*", RegexOptions.Compiled);
     public Regex server_PMsOnly = new Regex(@"(?<=\[Server thread\/INFO\]: ).*(issued server command: /(msg|r)).*", RegexOptions.Compiled);
-    public Regex server_ConsoleOnly = new Regex(@"(?<=\[Server thread\/INFO\]: )(?!\*?\s?\[(Global|Broadcast|Province|Yell|Local|Quiet|Whisper)\]).*", RegexOptions.Compiled);
+    public Regex server_ConsoleOnly = new Regex(@"(?<=\[Server thread\/INFO\]: )(?!\*?\s?\[(G|Broadcast|P|Y|L|Q|W)\]).*", RegexOptions.Compiled);
     public Regex server_ErrorsOnly = new Regex(@"(?<=\[Server thread\/ERROR\]: ).*", RegexOptions.Compiled);
 
     public void CleanText()
